@@ -2,6 +2,7 @@
 import http from "http";
 
 // import default config
+import { defaultConfig } from "./config/config";
 
 // import app
 import { app } from "./app";
@@ -10,6 +11,6 @@ import { app } from "./app";
 const server = http.createServer(app);
 
 // server listen
-server.listen(3000, () => {
-    console.log(`Listening on port 3000`)
-})
+server.listen(defaultConfig?.PORT, () => {
+    console.log(`Listening on port ${defaultConfig?.PORT}`)
+});
