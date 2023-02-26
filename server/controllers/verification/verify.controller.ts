@@ -1,9 +1,9 @@
 // import relevant module
 import { Response, Request } from "express";
-import { QueryResult } from "pg";
 
 // import db
 import { db } from "../../db/connect";
+import { QueryResult } from "pg";
 
 // import types
 import { verifyQueryTypes } from "../../types/verify.types";
@@ -30,12 +30,10 @@ export const verifyAccount = async (req : Request, res : Response) => {
              text : 'UPDATE users SET verified=true where verification_code = $1 RETURNING *',
              values : [code]
          }
-
        const userResult : QueryResult = await db.query(updateVerificationStatus); 
-       
        const user = userResult.rows[0];
        
-       //redirect if verified
+       // redirect if verified
        if(user?.verified) {
            return res.redirect('/profile')
        } else {
