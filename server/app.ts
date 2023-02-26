@@ -6,6 +6,7 @@ import morgan from "morgan";
 
 // import routers;
 import { authRouter } from "./routes/auth.route";
+import { verifyRouter } from "./routes/verify.route";
 
 // start an express server;
 export const app = express();
@@ -22,3 +23,6 @@ app.get("/", (req : Request, res : Response) => {
 
 // user auth endpoint
 app.use('/api/v1/user', authRouter);
+
+// verify route
+app.use('/api/v1', verifyRouter);

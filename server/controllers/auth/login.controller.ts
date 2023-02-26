@@ -7,16 +7,17 @@ import bcrypt from "bcrypt"
 import { db } from "../../db/connect";
 
 // types
-import { authQueryTypes } from "../../types/auth.types";
 import { QueryResult } from "pg";
 
 // validate
-import { validateEmail, 
-         validatePhoneNumber } from "../../validate/validate";
+import { validateEmail, validatePhoneNumber } from "../../validate/validate";
+
 // import config
 import { defaultConfig } from "../../config/config";
 
+// login controller
 export const loginUser = async (req: Request, res : Response) => {
+
     // get from body
     const {identifier, password} = req.body
     // input validation
@@ -32,7 +33,6 @@ export const loginUser = async (req: Request, res : Response) => {
         if(validateEmail(identifier)) {
             query = 'SELECT * FROM "users" WHERE email = $1',
             values = [identifier]
-    
         }  else if(validatePhoneNumber(identifier)) {
            query = 'SELECT * FROM "users" WHERE phone = $1',
            values = [identifier]
@@ -41,7 +41,6 @@ export const loginUser = async (req: Request, res : Response) => {
                 message: 'Invalid phone number or email' });
           }
         
-
        // check if the user email or phone number is correct;
         const result: QueryResult = await db.query(query, values);
 
@@ -65,14 +64,14 @@ export const loginUser = async (req: Request, res : Response) => {
          }
          const email : string = user?.email
 
-           // create token
+         // create token
         const token = jwt.sign(
             {
             user_id : user.id, email
             },
-           defaultConfig?.TOKEN, 
+            defaultConfig?.TOKEN, 
            {
-            expiresIn: 360000
+             expiresIn: 360000
            }
         );
 
@@ -85,7 +84,10 @@ export const loginUser = async (req: Request, res : Response) => {
             data:  user,
            })
     } catch (err) {
-         
+        console.log(err.message);
+        res.status(500).json({
+            message : 'server error'
+        });
     }
 
 }
