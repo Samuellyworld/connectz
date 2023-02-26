@@ -7,6 +7,9 @@ import { QueryResult } from "pg";
 // import db
 import { db } from "../../db/connect";
 
+// import email validate
+import { validateEmail } from "../../validate/validate";
+
 // types
 import { profileQueryTypes } from "../../types/profile.types";
 
@@ -55,6 +58,44 @@ export const updateUserProfile = async(req:Request | any, res:Response) => {
          res.status(200).json(
              { 
                 message: 'Username updated successfully' 
+             });
+        } else if (type === "email") {
+
+            // validate email address
+          if(!validateEmail(identifier)) {
+            return res.status(400).json({
+            message : "Invalid Email Address"
+           })
+         }
+            // check if the new email is already in use
+         const checkNewEmailQuery : profileQueryTypes = {
+            text : 'SELECT * FROM users WHERE Email = $1',
+            values : [identifier]
+         }
+        // result from db
+        const newEmailResult : QueryResult = await db.query(checkNewEmailQuery);
+       // send a response if Email exist
+        if(newEmailResult.rowCount > 0) {
+            return res.status(400).json({
+                message : 'Email Address is already in use'
+            })
+        }
+         // update the user's Email in the database;
+         const updateEmailQuery : profileQueryTypes = {
+             text :  'UPDATE users SET Email = $1 WHERE id = $2',
+             values : [identifier, userId]
+         }
+         // result
+         const updateEmail: QueryResult = await db.query(updateEmailQuery);
+         if (updateEmail.rowCount === 0) {
+            return res.status(400).json(
+                {
+                 message: 'Failed to update Email' 
+                });
+         }
+         res.status(200).json(
+             { 
+                message: 'Email updated successfully' 
              });
         }
   
