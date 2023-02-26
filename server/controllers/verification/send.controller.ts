@@ -1,7 +1,5 @@
 // import relevant module;
 import { Response, Request } from "express";
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt'
 import { Vonage } from "@vonage/server-sdk";
 import nodemailer from 'nodemailer';
 import {v4} from "uuid";
@@ -20,7 +18,7 @@ export const sendVerificationCode = async (req : Request | any, res: Response) =
    const {verificationMethod, identifier} = req.body;
    if(!verificationMethod || !identifier) {
     return res.status(400).json({
-        message : "Input the verification method or identifier"
+        message : "Fields cannot be empty"
     })
    }
 
@@ -122,6 +120,10 @@ export const sendVerificationCode = async (req : Request | any, res: Response) =
                    );
                }
            })
+           } else {
+            return res.status(400).json({
+                message : "Invalid verification method"
+            })
            }
     } catch (error) {
          console.log(error.message);
@@ -129,6 +131,4 @@ export const sendVerificationCode = async (req : Request | any, res: Response) =
             message : 'server error'
         });
     }
- 
-
 }
