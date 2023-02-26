@@ -3,6 +3,7 @@ import express, { Router } from "express";
 
 // import relevant controllers
 import { sendVerificationCode } from "../controllers/verification/send.controller";
+import { verifyAccount } from "../controllers/verification/verify.controller";
 
 // import middleware
 import { authMiddleware } from "../middleware/middleware";
@@ -12,3 +13,6 @@ export const verifyRouter : Router = express.Router();
 
 //send verification token route
 verifyRouter.post('/verify/send', authMiddleware, sendVerificationCode);
+
+// confirm verification code
+verifyRouter.put('/verify/:code', verifyAccount);
