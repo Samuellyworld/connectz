@@ -2,6 +2,7 @@
     "name": "connectz-main",
     "version": "1.0.0",
     "scripts": {
+      "start" : "cd server && node dist/server.js",
       "install-server": "cd server && npm install",
       "install-client": "npm install --prefix client",
       "install-app": "npm run install-client && npm run install-server",
