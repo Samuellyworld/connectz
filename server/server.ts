@@ -11,6 +11,6 @@ import { app } from "./app";
 const server = http.createServer(app);
 
 // server listen
-server.listen(defaultConfig?.PORT, () => {
+server.listen(process.env.PORT || defaultConfig?.PORT , () => {
     console.log(`Listening on port ${defaultConfig?.PORT}`)
 });
