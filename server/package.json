@@ -5,8 +5,9 @@
     "main": "index.ts",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "build": "npx tsc",
-        "start": "cd dist && node server.js",
+        "build": "tsc",
+        "start": "node dist/server.js",
+        "heroku-postbuild": "npm install && npm run build",
         "dist": "tsc -p .",
         "dev": "nodemon server.ts"
     },
