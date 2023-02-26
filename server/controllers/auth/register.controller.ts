@@ -2,7 +2,6 @@
 import { Response, Request } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { validate } from "email-validator";
 
 // import types
 import { authQueryTypes } from "../../types/auth.types";
