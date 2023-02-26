@@ -8,6 +8,7 @@ import morgan from "morgan";
 import { authRouter } from "./routes/auth.route";
 import { verifyRouter } from "./routes/verify.route";
 import { profileRouter } from "./routes/profile.route";
+import { passwordRouter } from "./routes/password.route";
 
 // start an express server;
 export const app = express();
@@ -30,3 +31,6 @@ app.use('/api/v1', verifyRouter);
 
 // profile route
 app.use('/api/v1/user', profileRouter);
+
+// password route
+app.use('/api/v1/user', passwordRouter);
