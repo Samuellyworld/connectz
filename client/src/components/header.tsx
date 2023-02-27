@@ -19,7 +19,7 @@ const Header: () => JSX.Element = () => {
  const [isOpen, setIsOpen] : [boolean, Dispatch<SetStateAction<boolean>>] = useState(false);
   
 //to check if user exists
-const user = true; // update later with db values
+const user = false; // update later with db values
 
   return (
     <>

@@ -13,6 +13,10 @@ export const HeaderContainer = styled.div`
     align-items: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
     height:11vh ;
+
+    @media screen and (max-width : 500px) {
+        padding : 1rem ;
+    }
 `
 
 export const LeftSide = styled.div`
@@ -21,19 +25,36 @@ export const LeftSide = styled.div`
     align-items: center;
 `
 export const RightSide = styled.div`
-    flex : 0.4;
     display: flex;
+    margin-right: 2rem ;
+    gap: 1rem;
     justify-content: space-around;
     align-items: center;
+
+    @media screen and (max-width : 800px) {
+        margin-right : 0.2rem;
+    }
+    
 `
 
 export const Logo = styled.img`
     max-height:2.5rem ;
 `
-export const LeftImageContainer = styled.div ``
+
+export const ConnectzText = styled.span`
+    font-size : 1.5rem;
+    background: linear-gradient(to right, blue, red);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+`
+export const LeftImageContainer = styled.div `
+    display :flex;
+    flex-direction : row;
+    align-items : center;
+`
+
 export const Button = styled.button`
-    margin-right:3rem ;
-    padding:0.5rem 1.5rem ;
+    padding: 0.5rem 2.5rem ;
     font-size:0.9rem ;
     border-radius:10px ;
     outline:none ;
@@ -41,6 +62,10 @@ export const Button = styled.button`
     background-color:black ;
     color:white ;
     cursor: pointer;
+
+    @media screen and (max-width : 800px) {
+        padding : 0.4rem 1rem;
+    }
 `
 
 export const HeaderProfileImg = styled.img`
