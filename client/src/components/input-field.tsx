@@ -87,12 +87,12 @@ const InputWithLabel : (props: any) => JSX.Element = (props : any) => {
       }}
       hasValue={hasValue}
       toValidate = {props.toValidate}
-
+      placeholder = {!inputValue ? props.theLabel : ""}
      />
-     <InputLabel htmlFor="input-field">{props.theLabel}</InputLabel>
+     <InputLabel htmlFor="input-field">{inputValue && props.theLabel}</InputLabel>
      <ErrorMessage>{error}</ErrorMessage>
      {props.errorMessage ? <ErrorMessage>{props.errorMessage}</ErrorMessage> : <></>}
-  </InputContainer>
+    </InputContainer>
   );
 };
 

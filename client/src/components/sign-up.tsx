@@ -25,12 +25,6 @@ import {
 // import input field
 import InputWithLabel from "./input-field";
 
-import logo from '../../assets/logo.png';
-import LockIcon from '../../assets/LockIcon.png'
-import emailIcon from '../../assets/emailIcon.png'
-import Vector from '../../assets/Vector.png';
-import Image from '../../assets/connect.jpg'
-
 // sign up JSX building block
 const SignUp : () => JSX.Element = () => {
 
@@ -54,13 +48,15 @@ const SignUp : () => JSX.Element = () => {
 
   }
 
-  // buildiing block
+  // building block
   return (
     <SignUpContainer>
       <SignUpLeft>
       <LogoContainer>
           <LeftImageContainer>
-                <Logo src ='/assets/png/logo.png' />
+                <Logo src ='/assets/png/logo.png' 
+                 style={{ width : "3rem"}}
+                 />
           </LeftImageContainer>
         <span className="text">Connect</span>
       </LogoContainer>
