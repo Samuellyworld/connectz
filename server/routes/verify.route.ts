@@ -12,7 +12,7 @@ import { authMiddleware } from "../middleware/middleware";
 export const verifyRouter : Router = express.Router();
 
 //send verification token route
-verifyRouter.post('/verify/send', authMiddleware, sendVerificationCode);
+verifyRouter.post('/verify/send', sendVerificationCode);
 
 // confirm verification code
 verifyRouter.put('/verify/:code', verifyAccount);
