@@ -5,9 +5,6 @@ import express, { Router } from "express";
 import { sendVerificationCode } from "../controllers/verification/send.controller";
 import { verifyAccount } from "../controllers/verification/verify.controller";
 
-// import middleware
-import { authMiddleware } from "../middleware/middleware";
-
 // create verify route
 export const verifyRouter : Router = express.Router();
 
