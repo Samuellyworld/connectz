@@ -25,3 +25,4 @@ export const db = new Pool(
    port : dbConfig.port,
    } as dbConfigTypes 
 );
+
