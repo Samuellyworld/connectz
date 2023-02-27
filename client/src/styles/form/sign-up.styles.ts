@@ -9,6 +9,7 @@ export const SignUpContainer = styled.div`
     position:relative;
     display: flex;
     flex-direction:row ;
+
 `
 // sign up left styles
 export const SignUpLeft = styled.div`
@@ -19,14 +20,23 @@ export const SignUpLeft = styled.div`
     height : 100%;
     width : 100%;
     padding : 1.5rem 1rem;
-    
+    gap : 2rem;
 
+    @media screen and (max-width : 500px) {
+        padding : 0.5rem;
+        margin-top : 2rem;
+    }
 `
 // sign up right styles
 export const SignUpRight = styled.div`
     flex:1;
     height: 100vh;
     overflow:hidden ;
+    margin-top: 2rem;
+
+    @media screen and (max-width : 830px) {
+        display : none;
+    }
 `
 // sign up right mini styles
 export const SignUpRightMini = styled.div`
@@ -38,6 +48,13 @@ export const SignUpRightMini = styled.div`
     left : 50%;
     transform:translate(-50%, -50%) ;
     border-radius: 10px;
+
+    @media screen and (max-width: 1100px) and (min-width: 890px) {
+        width : 80%;
+    }
+    @media screen and (max-width : 890px) {
+        width: 90%;
+    }
 `
 // sign up right image styles
 export const RightImage = styled.img`
@@ -47,18 +64,23 @@ export const LogoContainer = styled.div`
     display: flex;
     align-items: center;
     gap : 0.2rem;
-
+     
     .text {
         font-size: 1.5rem;
         font-weight: 800;
         background: linear-gradient(to right, blue, red);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+
+        @media screen and (max-width : 600px) {
+            font-size : 1.3rem;
+        }
     }
 `
 // logo image styles
 export const LogoImage = styled.img`
-    height:25px ;
+    height: 25px ;
+
 `
 
 // welcome text styles
@@ -69,6 +91,10 @@ export const WelcomeText = styled.span`
     letter-spacing:1px ;
     font-weight: 600;
     color : #3F00FF;
+
+    @media screen and (max-width : 500px) {
+        font-size : 1.5rem;
+    }
 `
 // small container styles 
 export const SmallerContainer = styled.div`
@@ -76,6 +102,10 @@ export const SmallerContainer = styled.div`
     width:80% ;
     padding:1.5rem 0;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+
+    @media screen and (max-width : 600px) {
+        width : 94%;
+    }
 `
 // sign up form styles
 export const SignUpForm = styled.form`
