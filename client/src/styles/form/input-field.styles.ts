@@ -50,7 +50,7 @@ export const InputField = styled.input<Props>`
       }
     `}
 `;
-
+// input label styles
 export const InputLabel = styled.label`
   position: absolute;
   padding-left:1.8rem ;
@@ -62,13 +62,14 @@ export const InputLabel = styled.label`
   font-family : TT firs, "sans-serif";
 `;
 
+// icon png styles
 export const IconPNG = styled.img`
   position:absolute ;
   top : 50%;
   transform:translateY(-50%) ;
   left:  5% ;
 `
-
+// error message styles
 export const ErrorMessage = styled.div`
   position: absolute;
   right: 0;

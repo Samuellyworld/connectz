@@ -20,7 +20,7 @@
     },
     "homepage": "https://github.com/Samuellyworld/connectz#readme",
     "dependencies": {
-        "@vonage/server-sdk": "^3.0.18",
+        "@vonage/server-sdk": "3.0.18",
         "bcrypt": "^5.1.0",
         "cors": "^2.8.5",
         "dotenv": "^16.0.3",
