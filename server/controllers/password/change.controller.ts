@@ -25,7 +25,7 @@ export const changePassword = async (req: Request | any, res:Response) => {
      console.log(req.user)
 
     try {
-        // check if the current password is current
+      
         // passsword query
         const passwordQuery:passwordQueryTypes = {
             text : 'SELECT * FROM users WHERE id = $1',

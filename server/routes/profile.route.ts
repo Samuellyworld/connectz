@@ -16,3 +16,4 @@ profileRouter.put('/profile', authMiddleware, updateUserProfile);
 
 // get profile route
 profileRouter.get('/profile', authMiddleware, getUserProfile);
+
