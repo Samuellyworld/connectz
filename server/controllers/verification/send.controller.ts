@@ -3,6 +3,7 @@ import { Response, Request } from "express";
 import { Vonage } from "@vonage/server-sdk";
 import nodemailer from 'nodemailer';
 import {v4} from "uuid";
+import jwt from "jsonwebtoken";
 
 // import config
 import { defaultConfig, verificationConfig } from "../../config/config";
@@ -22,9 +23,6 @@ export const sendVerificationCode = async (req : Request | any, res: Response) =
     })
    }
 
-   // get userid using auth token
-   const userId = req.user?.user_id;
-   
     try {
          if(verificationMethod === "phone") {
           
@@ -39,6 +37,24 @@ export const sendVerificationCode = async (req : Request | any, res: Response) =
           //  the user
           const verifyResult : QueryResult = await db.query(updateVerifyQuery);
           const user = verifyResult.rows[0];
+    
+            // sign a token
+            const email : string = user?.email
+
+            // create token
+           const authToken = jwt.sign(
+            {
+            user_id : user.id, email
+            },
+            defaultConfig?.TOKEN, 
+            {
+             expiresIn: 360000
+            }
+            );
+
+          // save user token
+           user.token = authToken;
+
           if (!user) {
             return res.status(404).json({ 
                 message: 'Please use the number you registered with' 
@@ -65,7 +81,8 @@ export const sendVerificationCode = async (req : Request | any, res: Response) =
                     console.log('There was an error sending the message.'); console.error(err);
                  })
                 return res.status(200).json({
-                      message: 'Message sent successfully' 
+                      message: 'Message sent successfully' ,
+                      data : user
                     }
                      );
 
@@ -82,6 +99,24 @@ export const sendVerificationCode = async (req : Request | any, res: Response) =
             //  the user
             const verifyResult : QueryResult = await db.query(updateVerifyQuery);
             const user = verifyResult.rows[0];
+
+            // sign a token
+            const email : string = user?.email
+
+            // create token
+           const authToken = jwt.sign(
+            {
+            user_id : user.id, email
+            },
+            defaultConfig?.TOKEN, 
+            {
+             expiresIn: 360000
+            }
+            );
+
+          // save user token
+           user.token = authToken;
+
             if (!user) {
               return res.status(404).json({ 
                   message: 'Please use the email you registered with' 
@@ -115,7 +150,8 @@ export const sendVerificationCode = async (req : Request | any, res: Response) =
                } else {
                    console.log(resp)
                 return res.status(200).json({
-                    message: 'Message sent successfully' 
+                    message: 'Message sent successfully' ,
+                    data : user
                   }
                    );
                }
@@ -125,6 +161,7 @@ export const sendVerificationCode = async (req : Request | any, res: Response) =
                 message : "Invalid verification method"
             })
            }
+
     } catch (error) {
          console.log(error.message);
         res.status(500).json({
