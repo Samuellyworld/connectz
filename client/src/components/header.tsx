@@ -5,21 +5,17 @@ import { Button, DropdownWrapper,
          HeaderProfileImg, LeftSide, Logo, 
          RightSide, LeftImageContainer } from "../styles/landing/header.styles";
 
-//  import logo from '../../assets/logo.png';
-// import image from '../../assets/image1.jpg';
-
 //  import relevant react hooks and for types
 import { Dispatch, SetStateAction, useState } from "react";
-
 
 // JSX Component
 const Header: () => JSX.Element = () => {
   
-    // react state initial boolean
- const [isOpen, setIsOpen] : [boolean, Dispatch<SetStateAction<boolean>>] = useState(false);
+// react state initial boolean
+const [isOpen, setIsOpen] : [boolean, Dispatch<SetStateAction<boolean>>] = useState(false);
   
 //to check if user exists
-const user = false; // update later with db values
+const user : boolean = false; 
 
   return (
     <>

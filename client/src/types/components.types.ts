@@ -4,5 +4,12 @@ export interface signUpInputChangeTypes {
     email : string,
     password : string,
     confirm_password : string,
-    textReveal : string
+    textReveal : string,
+    interests : []
+}
+
+// options types
+export interface interestListTypes {
+    value : string,
+    label : string
 }
