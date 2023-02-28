@@ -80,6 +80,7 @@ const InputWithLabel : (props: any) => JSX.Element = (props : any) => {
      <IconPNG src={props.logo} /> 
      <InputField
       type={props.type}
+      name={props.name}
       value={inputValue}
       onChange={(event) => {
         props.onChange(event);

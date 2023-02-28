@@ -1,7 +1,8 @@
 // import custom react hook
 import {
         useState, useEffect, 
-        SetStateAction 
+        SetStateAction, 
+        ChangeEvent
        } from "react";
 
 // import custom styles
@@ -25,10 +26,21 @@ import {
 // import input field
 import InputWithLabel from "./input-field";
 
+// types
+import { signUpInputChangeTypes } from "../types/components.types";
+
 // sign up JSX building block
 const SignUp : () => JSX.Element = () => {
 
  // initial values
+  const [values, setValues] = useState({
+    username : "",
+    email : "",
+    password : "",
+    confirm_password : "",
+    textReveal : ""
+  } as signUpInputChangeTypes)
+
   const [newPassword, setNewPassword] = useState('');
   const [newConfirmPassword, setNewConfirmPassword] = useState('');
   const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] = useState('');
@@ -44,8 +56,15 @@ const SignUp : () => JSX.Element = () => {
       }
     }
 
-  const doNothing = () => {
 
+  // handle input change
+  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const {name, value} = e.target
+    setValues({
+      ...values,
+      [name] : value,
+    })
+    console.log(values?.password , values?.confirm_password)
   }
 
   // building block
@@ -60,18 +79,17 @@ const SignUp : () => JSX.Element = () => {
           </LeftImageContainer>
         <span className="text">Connect</span>
       </LogoContainer>
-
     <WelcomeText>Welcome!</WelcomeText>  
-
     <SmallerContainer>
       <SignUpForm>
         <SignInInputCont>
           <InputWithLabel 
             type = "text" 
             logo = '/assets/png/Vector.png'
-            onChange = {doNothing}
+            onChange = {handleChange}
             theLabel="Username" 
             toValidate = {true}
+            name = "username"
         />
         </SignInInputCont>
 
@@ -79,9 +97,10 @@ const SignUp : () => JSX.Element = () => {
           <InputWithLabel 
             type = "email" 
             logo='/assets/png/emailIcon.png' 
-            onChange = {doNothing} 
+            onChange = {handleChange} 
             theLabel="Email" 
             toValidate = {true}
+            name = "email"
             />
         </SignInInputCont>
         
@@ -89,9 +108,10 @@ const SignUp : () => JSX.Element = () => {
           <InputWithLabel 
             type = "text" 
             logo='/assets/png/emailIcon.png'
-            onChange = {doNothing} 
+            onChange = {handleChange} 
             theLabel="Phone Number"
             toValidate = {true}
+            name = "phone"
            />
         </SignInInputCont>
 
@@ -99,10 +119,10 @@ const SignUp : () => JSX.Element = () => {
           <InputWithLabel 
              type = "password" 
              logo='/assets/png/LockIcon.png' 
-             onChange = {(e: { target: { value: SetStateAction<string>; }; }) => {
-                setNewPassword(e.target.value)}} 
+             onChange = {handleChange} 
               theLabel="Password" 
               toValidate = {true}
+              name = "password"
             />
         </SignInInputCont>
 
@@ -111,21 +131,26 @@ const SignUp : () => JSX.Element = () => {
              type = "password" 
              logo='/assets/png/LockIcon.png' 
              errorMessage = {confirmPasswordErrorMessage} 
-             onChange = {(event: { target: any; } ) => {
-             setNewConfirmPassword(event.target.value)
-             theFunction(event)
-             }
-             } 
+             onChange = 
+             {
+               (e: ChangeEvent<HTMLInputElement>) => {
+                handleChange(e)
+                console.log(values?.password === values?.confirm_password)
+              if(values?.password !== values?.confirm_password) {
+                setConfirmPasswordErrorMessage("password do not match")   
+              } else {
+                setConfirmPasswordErrorMessage('')
+              }
+            
+             }}
              theLabel="Confirm Password" 
              toValidate = {true}
+             name = "confirm_password"
             />
         </SignInInputCont>
 
       <SignUpButton>Sign Up</SignUpButton>
-
-
       </SignUpForm>
-
       <AlreadySignedUp>Already Signed Up?    
           <SignText to = "/signin">Sign In Now</SignText>
         </AlreadySignedUp>
@@ -135,7 +160,6 @@ const SignUp : () => JSX.Element = () => {
         <SignUpRightMini>
           <RightImage src="/assets/jpg/connect.jpg" />
         </SignUpRightMini>
-        
       </SignUpRight>
     </SignUpContainer>
   )
