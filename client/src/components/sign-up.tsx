@@ -16,7 +16,12 @@ import { ImgIcon, AlreadySignedUp,
          SignUpRightMini
          } from "../styles/form/sign-up.styles";
 
+import { InputLabel } from "../styles/form/input-field.styles";
+
 import { SignInInputCont } from "../styles/form/sign-in.styles";
+
+// import select 
+import Select from 'react-select';
 
 // import logo styles
 import {
@@ -28,9 +33,13 @@ import InputWithLabel from "./input-field";
 
 // types
 import { signUpInputChangeTypes } from "../types/components.types";
+import { interestOptions } from "../utils/interest-list";
 
 // sign up JSX building block
 const SignUp : () => JSX.Element = () => {
+
+  //
+  const [intVal, setIntVal] = useState("")
 
  // initial values
   const [values, setValues] = useState({
@@ -38,24 +47,12 @@ const SignUp : () => JSX.Element = () => {
     email : "",
     password : "",
     confirm_password : "",
-    textReveal : ""
+    textReveal : "",
+    interests : []
   } as signUpInputChangeTypes)
 
-  const [newPassword, setNewPassword] = useState('');
-  const [newConfirmPassword, setNewConfirmPassword] = useState('');
+ // set password do not match - error
   const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] = useState('');
-
-   // validate
-  const theFunction = (event: { target: { value: string | any[]; }; }) => {
-      if(newPassword !== event.target.value) {
-        setConfirmPasswordErrorMessage("Passwords do not match")
-      } else if (newPassword == event.target.value) {
-        setConfirmPasswordErrorMessage('')
-      } else if (event.target.value.length === 0) {
-        setConfirmPasswordErrorMessage('')
-      }
-    }
-
 
   // handle input change
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,9 +61,19 @@ const SignUp : () => JSX.Element = () => {
       ...values,
       [name] : value,
     })
-    console.log(values?.password , values?.confirm_password)
+
+  //  let real = values?.interests.map((val : any) => {
+  //    return val.value
+  //   })
+  //  console.log(real);
   }
 
+  // has value 
+
+  // handle submit 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+       
+  }
   // building block
   return (
     <SignUpContainer>
@@ -135,18 +142,51 @@ const SignUp : () => JSX.Element = () => {
              {
                (e: ChangeEvent<HTMLInputElement>) => {
                 handleChange(e)
-                console.log(values?.password === values?.confirm_password)
               if(values?.password !== values?.confirm_password) {
                 setConfirmPasswordErrorMessage("password do not match")   
-              } else {
+              } else if(values?.password === values?.confirm_password) {
+                setConfirmPasswordErrorMessage('')
+              } 
+              if (!e.target.value) {
                 setConfirmPasswordErrorMessage('')
               }
-            
              }}
              theLabel="Confirm Password" 
              toValidate = {true}
              name = "confirm_password"
             />
+        </SignInInputCont>
+        <SignInInputCont>
+           <img className="img" src="/assets/svg/intercom-alt (1).svg"/>
+           <Select 
+             onChange={(e : any) => {
+                setValues({
+                  ...values,
+                  interests : e
+                })
+
+             }}
+              onInputChange ={(e : any) => {
+                  setIntVal(e) 
+              }}
+              // hasValue={values?.interests.length > 0}
+              className="interests"
+              isMulti
+              placeholder="Interests"
+              name="Interests"
+              options={interestOptions}
+             />
+             <InputLabel 
+               className="label" 
+               htmlFor="input-field"
+               >
+                {
+                intVal.length > 0 ?
+                 "Interests" : 
+                 values?.interests.length > 0 
+                 && "Interests"
+                 }
+             </InputLabel>
         </SignInInputCont>
 
       <SignUpButton>Sign Up</SignUpButton>

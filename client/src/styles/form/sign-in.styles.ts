@@ -1,6 +1,10 @@
 // import custom styles
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 import { Link } from "react-router-dom";
+
+interface Props {
+    hasValue : boolean
+}
 
 // signIn container styles
 export const SignInContainer = styled.div`
@@ -127,7 +131,81 @@ export const LoginForm = styled.form`
 export const SignInInputCont = styled.div`
     position:relative ;
 
+    .interests {
+        font-family : TT Firs, "sans-serif";
+        border : none;
+        outline: none;
+        text-decoration : none;
+        border-color : unset;
+        width : 90%;
+        margin : auto;
+        font-size : 1rem;
+
+
+        .css-13cymwt-control {
+            background : unset;
+            border-color : unset;
+            border-radius : unset;
+            border-style : unset;
+            border-bottom: solid 1px grey;
+            
+        }
+        .css-t3ipsp-control {
+            outline : none !important;
+            text-decoration : none !important;
+            border : none;
+            border-radius : unset;
+            border-bottom: solid 1px grey;
+            background: unset !important;
+            box-shadow: unset;
+        }
+        .css-1u9des2-indicatorSeparator{
+          display : none;
+        }
+        input, input:focus, input:hover, input:after {
+            outline : none !important;
+            text-decoration : none !important;
+            border: none !important;
+            background: unset !important;
+        }
+
+        .css-qbdosj-Input {
+            padding-left: 2rem;
+        }
+    }
+ 
+   .label {
+            transform: translateY(-20px);
+            font-size: 0.8rem;
+            color: black;
+            padding:0.1rem 0.2rem ;
+            border-radius:1px ;
+            top : 1px;
+            font-family : TT firs, "sans-serif";
+      }
+    
+    .img {
+        position:absolute ;
+        top : 50%;
+        transform:translateY(-50%) ;
+        left:  5% ;
+        width: 1rem;
+    }
+    .css-1jqq78o-placeholder {
+        padding-left: 2rem;
+    }
+    .css-1p3m7a8-multiValue {
+        // margin-left : 16px;
+    }
+    .css-3w2yfm-ValueContainer {
+        margin-left : 12px;
+    }
+    .css-166bipr-Input {
+        padding-left : 2rem;
+    }
 `
+
+
 // img icon styles
 export const ImgIcon = styled.img`
     position:absolute ;
