@@ -10,20 +10,30 @@ export const SignInContainer = styled.div`
     position:relative ;
     display: flex;
     flex-direction:column ;
+
+    @media screen and (max-width : 600px) {
+        padding : 1rem 0.5rem;
+    }
 `
+
  
 // logo container styles
 export const LogoContainer = styled.div`
     display: flex;
     align-items: center;
     gap : 0.2rem;
-
+   
     .text {
         font-size: 1.5rem;
         font-weight: 800;
         background: linear-gradient(to right, blue, red);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+    }
+    @media screen and (max-width: 600px) {
+        .logo {
+            width : 2.8rem;
+        }
     }
 `
 // logo image styles
@@ -37,6 +47,11 @@ export const WelcomeText = styled.span`
     font-weight: 600;
     margin:auto ;
     color : #3F00FF;
+    padding-top: 3rem;
+
+    @media screen and (max-width : 600px) {
+        font-size : 1.4rem;
+    }
 `
 
 // smaller text styles
@@ -54,6 +69,23 @@ export const SmallerContainer = styled.div`
     width:40% ;
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
     padding-bottom:1rem ;
+    border-radius : 0.5rem;
+
+    @media screen and (max-width : 1000px) and (min-width: 700px) {
+        width : 60%;
+    }
+    @media screen and (max-width: 700px) and (min-width : 600px) {
+        width : 70%;
+    }
+    @media screen and (max-width: 600px) and (min-width : 500px) {
+        width : 80%;
+    }
+    @media screen and (max-width: 500px) and (min-width : 400px) {
+        width : 90%;
+    }
+    @media screen and (max-width: 400px) {
+        width : 98%;
+    }
 `
 // top header styles
 export const TopHeader = styled.div`
@@ -61,6 +93,7 @@ export const TopHeader = styled.div`
     flex-direction:row ;
     width : 100%;
     margin-bottom:1.5rem ;
+    border-radius : 0.5rem 0.5rem 0rem 0rem;
 
 `
 // phone number styles
@@ -121,6 +154,7 @@ export const ForgotPassword = styled(Link)`
     cursor: pointer ;
     margin-top:-0.5rem ;
     font-weight: 400;
+    font-family : TT firs, "sans-serif"
 `
 // login button styles
 export const LoginButton = styled.button`

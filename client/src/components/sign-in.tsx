@@ -43,7 +43,7 @@ const SignIn : () => JSX.Element = () => {
     <SignInContainer>
       <LogoContainer>
           <LeftImageContainer>
-                <Logo src ="/assets/png/logo.png" />
+                <Logo className="logo" src ="/assets/png/logo.png" />
           </LeftImageContainer>
         <span className="text">Connect</span>
       </LogoContainer>
