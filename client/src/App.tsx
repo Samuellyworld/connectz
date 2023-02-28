@@ -8,6 +8,7 @@ import {
 
 // import each pages
 import LandingPage from "./pages/landing";
+import SignInPage from "./pages/sign-in";
 import SignUpPage from "./pages/sign-up";
 
 const App : () => JSX.Element = () => {
@@ -16,6 +17,7 @@ const App : () => JSX.Element = () => {
          <Routes>
            <Route path='/' element={<LandingPage />} />
            <Route path='/register' element={<SignUpPage/>} />
+           <Route path='/signin' element={<SignInPage/>} />
          </Routes>
        </Router>
  
