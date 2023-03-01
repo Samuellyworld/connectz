@@ -15,10 +15,11 @@ import { ImgIcon, AlreadySignedUp,
          SignUpRight, RightImage,
          SignUpRightMini
          } from "../styles/form/sign-up.styles";
-
 import { InputLabel } from "../styles/form/input-field.styles";
-
 import { SignInInputCont } from "../styles/form/sign-in.styles";
+
+// import dispatch
+import { useDispatch } from "react-redux";
 
 // import external inputs
 import { handleSignUpRequest } from "../utils/requests";
@@ -38,10 +39,12 @@ import InputWithLabel from "./input-field";
 import { signUpInputChangeTypes } from "../types/components.types";
 import { interestOptions } from "../utils/interest-list";
 import { checkInputs } from "../utils/check";
+import { Dispatch } from "redux";
 
 // sign up JSX building block
 const SignUp : () => JSX.Element = () => {
-
+  // setting dispatch
+  const dispatch : Dispatch = useDispatch()
   //
   const [intVal, setIntVal] = useState("")
 
@@ -72,22 +75,25 @@ const SignUp : () => JSX.Element = () => {
 
   // handle submit 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+       // prevent default
        e.preventDefault()
+
        // check inputs before submitting to server
-      let check = checkInputs(values, setError)  
+      let check = checkInputs(values, setError, true || false)  
        if(check) return 
-      // convert 
+
+      // convert obj to array
        let convertInterestsToArr : string[]= values?.interests.map(
              (val : {value : string, label : string}) => {
               return val.value
              })
-       try {
-     let response =  await  handleSignUpRequest(values, convertInterestsToArr, setError)
-          
-       } catch (error) {
-         console.log(error)
-       } 
+
+      // sign up request
+      await handleSignUpRequest(values, convertInterestsToArr, 
+                                setError, dispatch)
+        
   }
+
   // building block
   return (
     <SignUpContainer>
