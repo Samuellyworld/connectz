@@ -1,6 +1,10 @@
 // import custom styles
 import styled from "styled-components";
 
+// interface Props {
+//     onClick : any
+// }
+
 //  verfiy page container styles
 export const VerifyPageContainer = styled.div`
     padding : 2rem;
@@ -26,19 +30,50 @@ export const LogoContainer = styled.div`
 export const LogoImage = styled.img`
     height:25px ;
 `
+
+
+
+
 // verify innner container styles
 export const VerifyInnerContainer = styled.div`
     position:absolute;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0px 2px 2px rgba(0, 0, 0, 0.2);
     top:50% ;
     left : 50%;
     transform:translate(-50%, -50%) ;
-    width:35% ;
+    width: 35% ;
     display: flex;
     flex-direction:column ;
     align-items: center;
     padding: 2rem;
     border-radius:5px ;
+
+    .button_verify {
+        position: absolute;
+        top: -53px;
+        left: 0px;
+        padding: 0.5rem 2rem;
+    }
+
+    .react-tel-input .form-control {
+          background: whitesmoke;
+    }
+
+    @media screen and (max-width : 1000px) and (min-width : 750px) {
+        width : 50%;
+    }
+    @media screen and (max-width : 750px) and (min-width: 613px) {
+        width : 65%;
+    }
+    @media screen and (max-width: 613px) and (min-width : 511px) {
+        width : 75%;
+    }
+    @media screen and (max-width: 511px) and (min-width: 450px) {
+        width : 85%;
+    }
+    @media screen and (max-width : 450px) {
+        width : 90%;
+    }
 `
 // verify big text styles
 export const VerifyBigText = styled.span`
@@ -47,6 +82,10 @@ export const VerifyBigText = styled.span`
     margin-bottom:1rem ;
     color :#3F00FF;
     font-weight: 500;
+
+    @media screen and  (max-width: 450px) {
+        font-size : 1.2rem;
+    }
 `
 
 // verify small text styles
