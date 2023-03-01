@@ -10,6 +10,14 @@ export const SignUpContainer = styled.div`
     display: flex;
     flex-direction:row ;
 
+    .error {
+        font-size : 1rem;
+        margin: auto;
+        font-family : TT Firs, "sans-serif";
+        color : red;
+    }
+
+
 `
 // sign up left styles
 export const SignUpLeft = styled.div`
