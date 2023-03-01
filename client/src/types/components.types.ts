@@ -4,6 +4,7 @@ export interface signUpInputChangeTypes {
     email : string,
     password : string,
     confirm_password : string,
+    phone : string,
     textReveal : string,
     interests : []
 }

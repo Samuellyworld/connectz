@@ -20,6 +20,9 @@ import { InputLabel } from "../styles/form/input-field.styles";
 
 import { SignInInputCont } from "../styles/form/sign-in.styles";
 
+// import external inputs
+import { handleSignUpRequest } from "../utils/requests";
+
 // import select 
 import Select from 'react-select';
 
@@ -34,6 +37,7 @@ import InputWithLabel from "./input-field";
 // types
 import { signUpInputChangeTypes } from "../types/components.types";
 import { interestOptions } from "../utils/interest-list";
+import { checkInputs } from "../utils/check";
 
 // sign up JSX building block
 const SignUp : () => JSX.Element = () => {
@@ -47,12 +51,15 @@ const SignUp : () => JSX.Element = () => {
     email : "",
     password : "",
     confirm_password : "",
+    phone : "",
     textReveal : "",
     interests : []
   } as signUpInputChangeTypes)
 
  // set password do not match - error
   const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] = useState('');
+  // server error message
+  const [error, setError] = useState('');
 
   // handle input change
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,18 +68,25 @@ const SignUp : () => JSX.Element = () => {
       ...values,
       [name] : value,
     })
-
-  //  let real = values?.interests.map((val : any) => {
-  //    return val.value
-  //   })
-  //  console.log(real);
   }
-
-  // has value 
 
   // handle submit 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-       
+       e.preventDefault()
+       // check inputs before submitting to server
+      let check = checkInputs(values, setError)  
+       if(check) return 
+      // convert 
+       let convertInterestsToArr : string[]= values?.interests.map(
+             (val : {value : string, label : string}) => {
+              return val.value
+             })
+       try {
+     let response =  await  handleSignUpRequest(values, convertInterestsToArr, setError)
+          
+       } catch (error) {
+         console.log(error)
+       } 
   }
   // building block
   return (
@@ -87,8 +101,9 @@ const SignUp : () => JSX.Element = () => {
         <span className="text">Connect</span>
       </LogoContainer>
     <WelcomeText>Welcome!</WelcomeText>  
+     <p className="error"> {error}</p>
     <SmallerContainer>
-      <SignUpForm>
+      <SignUpForm onSubmit={handleSubmit}>
         <SignInInputCont>
           <InputWithLabel 
             type = "text" 
@@ -142,9 +157,9 @@ const SignUp : () => JSX.Element = () => {
              {
                (e: ChangeEvent<HTMLInputElement>) => {
                 handleChange(e)
-              if(values?.password !== values?.confirm_password) {
+              if(values?.password !== e.target.value) {
                 setConfirmPasswordErrorMessage("password do not match")   
-              } else if(values?.password === values?.confirm_password) {
+              } else if(values?.password === e.target.value) {
                 setConfirmPasswordErrorMessage('')
               } 
               if (!e.target.value) {
@@ -169,7 +184,6 @@ const SignUp : () => JSX.Element = () => {
               onInputChange ={(e : any) => {
                   setIntVal(e) 
               }}
-              // hasValue={values?.interests.length > 0}
               className="interests"
               isMulti
               placeholder="Interests"
@@ -185,7 +199,7 @@ const SignUp : () => JSX.Element = () => {
                  "Interests" : 
                  values?.interests.length > 0 
                  && "Interests"
-                 }
+               }
              </InputLabel>
         </SignInInputCont>
 
