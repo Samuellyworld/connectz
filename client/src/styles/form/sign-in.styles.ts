@@ -15,6 +15,14 @@ export const SignInContainer = styled.div`
     display: flex;
     flex-direction:column ;
 
+    .error {
+        padding-top: 1rem;
+        font-size : 1rem;
+        margin: auto;
+        font-family : TT Firs, "sans-serif";
+        color : red;
+    }
+
     @media screen and (max-width : 600px) {
         padding : 1rem 0.5rem;
     }
