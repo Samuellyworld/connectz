@@ -1,6 +1,6 @@
 // import relevant module;
 import { Response, Request } from "express";
-// import { Vonage } from "@vonage/server-sdk";
+import twilio, { Twilio } from "twilio";
 import nodemailer from 'nodemailer';
 import {v4} from "uuid";
 import jwt from "jsonwebtoken";
@@ -11,8 +11,8 @@ import { defaultConfig, verificationConfig } from "../../config/config";
 import { db } from "../../db/connect";
 import { mailOptionstypes, verifyQueryTypes } from "../../types/verify.types";
 import { QueryResult } from "pg";
+import { MessageInstance } from "twilio/lib/rest/api/v2010/account/message";
 
-// get a random string
 // verify
 export const sendVerificationCode = async (req : Request | any, res: Response) => {
    // get values from body
@@ -24,70 +24,73 @@ export const sendVerificationCode = async (req : Request | any, res: Response) =
    }
 
     try {
-        //  if(verificationMethod === "phone") {
+         if(verificationMethod === "phone") {
           
-        //     // generate verification code
-        //   const verificationCode = Math.floor(Math.random() * Math.pow(10, verificationConfig?.VERIFICATION_CODE_LENGTH)).toString();
+            // generate verification code
+          const verificationCode = Math.floor(Math.random() * Math.pow(10, verificationConfig?.VERIFICATION_CODE_LENGTH)).toString();
           
-        //   // update verification code from users table
-        //   const updateVerifyQuery : verifyQueryTypes = {
-        //       text : 'UPDATE users SET verification_code = $1 WHERE phone = $2 RETURNING *',
-        //       values : [verificationCode, identifier]
-        //   }
-        //   //  the user
-        //   const verifyResult : QueryResult = await db.query(updateVerifyQuery);
-        //   const user = verifyResult.rows[0];
+          // update verification code from users table
+          const updateVerifyQuery : verifyQueryTypes = {
+              text : 'UPDATE users SET verification_code = $1 WHERE phone = $2 RETURNING *',
+              values : [verificationCode, identifier]
+          }
+          //  the user
+          const verifyResult : QueryResult = await db.query(updateVerifyQuery);
+          const user = verifyResult.rows[0];
     
-        //     // sign a token
-        //     const email : string = user?.email
+            // sign a token
+            const email : string = user?.email
 
-        //     // create token
-        //    const authToken = jwt.sign(
-        //     {
-        //     user_id : user.id, email
-        //     },
-        //     defaultConfig?.TOKEN, 
-        //     {
-        //      expiresIn: 360000
-        //     }
-        //     );
+            // create token
+           const authToken = jwt.sign(
+            {
+            user_id : user.id, email
+            },
+            defaultConfig?.TOKEN, 
+            {
+             expiresIn: 360000
+            }
+            );
 
-        //   // save user token
-        //    user.token = authToken;
+          // save user token
+           user.token = authToken;
 
-        //   if (!user) {
-        //     return res.status(404).json({ 
-        //         message: 'Please use the number you registered with' 
-        //     });
-        //   }
-        //   console.log(user);
-        //     // vonage
-        //     const vonage = new Vonage({
-        //         apiKey : defaultConfig?.APIkey,
-        //         apiSecret : defaultConfig?.APIsecret
-        //     } as any )
+          if (!user) {
+            return res.status(404).json({ 
+                message: 'Please use the number you registered with' 
+            });
+          }
+            // twilio
+            const accountSid : string= defaultConfig?.AccountSid;
+            const authKey : string = defaultConfig?.AuthToken;
 
-        //     // details
-        //     const from : string = "Connectz APIs";
-        //     const to : string = identifier;
-        //     const text : string = `Your verification code is ${verificationCode}`;
+            // start an instance
+            const client : Twilio = twilio(accountSid, authKey);
 
-        //     // send message
-        //    await vonage.sms.send({to, from, text})
-        //          .then(resp => {
-        //              console.log('Message sent successfully'); console.log(resp);
-        //          })
-        //          .catch(err => {
-        //             console.log('There was an error sending the message.'); console.error(err);
-        //          })
-        //         return res.status(200).json({
-        //               message: 'Message sent successfully' ,
-        //               data : user
-        //             }
-        //              );
+            // details
+            const from : string = "+12765308354";
+            const to : string = identifier;
+            const body : string = `Your Connectz Code is ${verificationCode}`;
 
-        //    } else
-            if(verificationMethod === "email") {
+            await client.messages.create({
+                from : from,
+                to : to,
+                body : body
+            }).then((message : MessageInstance) => {
+                 console.log(message.sid)
+                 console.log('Message sent successfully')
+            })
+            .catch(err => {
+                console.log('There was an error sending the message.'); console.error(err);
+             })
+            // send message response
+                return res.status(200).json({
+                      message: 'Message sent successfully' ,
+                      data : user
+                    }
+                );
+
+           } else if(verificationMethod === "email") {
 
               // generate a unique token
               const token : string = v4().substring(0,5);

@@ -14,8 +14,8 @@ export const defaultConfig:defaultConfigTypes = {
     PORT : Number(process.env.PORT),
     TOKEN : process.env.TOKEN_ID,
     ADMIN : process.env.ADMIN_ID,
-    APIkey: process.env.APIkey,
-    APIsecret: process.env.APIsecret
+    AccountSid : process.env.accountSid,
+    AuthToken: process.env.authToken
 }
 
   // default config for db connection
