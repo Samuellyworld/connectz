@@ -109,8 +109,8 @@ export const SmallerContainer = styled.div`
     margin:auto ;
     width:80% ;
     padding:1.5rem 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-
+    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.15);
+    border-radius : 5px;
     @media screen and (max-width : 600px) {
         width : 94%;
     }

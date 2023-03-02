@@ -11,42 +11,64 @@ import { VerifyPageContainer,LogoContainer,
  // usestate from react
 import { useState } from "react"
 
+// import relevant function
+import { handleSendEmailCode } from "../utils/requests";
+
+// import use selector
+import { useSelector } from "react-redux";
+
 //importing 3rd party libraries
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
+import { RootState } from "../store/store";
+
+
 
 
 // verifyPage
 const Verify : () => JSX.Element = () => {
     const [choosen, setChoosen] = useState(1);
     const [value, setValue] : any = useState()
-
+    
+    // using use selector
+    const email : string = useSelector((state : RootState) => 
+        state?.currentUser?.currentUser?.email
+    )
+    // phone number
+    const phone :string = useSelector((state : RootState) => 
+      state?.currentUser?.currentUser?.phone
+    )
 
     const handleClick = (input : any) => {
         setChoosen(input)
     }
     
+    // handle submit
     const handleSubmit = () => {
-
+         
     }
 
+
+    // choose which to verify with
     const ChooseVerify = () => {
+        const [result, setResult] = useState('')
         return (
             <>    
-                    <VerifyInnerContainer>
-                     <VerifyNextButton
-                        className="button_verify"
-                        onClick = {() => window.history.back()}
-                     >Back
+              <VerifyInnerContainer>
+                 <VerifyNextButton
+                  className="button_verify"
+                  onClick = {() => window.history.back()}
+                  >Back
                      </VerifyNextButton> 
-                      <VerifyBigText>Verify your account</VerifyBigText>
-                        <VerifySmallText>How would you like to verify your account</VerifySmallText>
-
+                     <VerifyBigText>Verify your account</VerifyBigText>
+                     <VerifySmallText>How would you like to verify your account</VerifySmallText>
                         <VerifySecondDiv>
-                            <VerifyMethod >Verify account with email</VerifyMethod>
+                            <VerifyMethod onClick={() => handleSendEmailCode(email, setResult)} >Verify account with email</VerifyMethod>
                             <VerifyMethod onClick = {() => handleClick(3)}>Verify account with Phone Number</VerifyMethod>
                         </VerifySecondDiv>
+                 
                     </VerifyInnerContainer>
+                    <p className="result">{result}</p>
             </>
         )
     }
@@ -66,8 +88,8 @@ const Verify : () => JSX.Element = () => {
                 <VerifySmallText>Verify your phone number so we can help you if you forget the password to your account</VerifySmallText>
 
                 <VerifyInputCont>
-                    <PhoneInput placeholder = "Phone Number" country="ng" value={value}
-                        onChange={setValue} inputProps={{
+                    <PhoneInput placeholder = "Phone Number" country="ng" value={phone}
+                        onChange={setValue(phone)} inputProps={{
                             name: 'phone',
                             required: true,
                             autoFocus: true
@@ -99,7 +121,7 @@ const Verify : () => JSX.Element = () => {
                     Back
                  </VerifyNextButton> 
                 <VerifyBigText>Verify your phone number</VerifyBigText>
-                <VerifySmallText>Enter the 6-digit code sent to +{value} </VerifySmallText>
+                <VerifySmallText>Enter the 6-digit code sent to {value} </VerifySmallText>
 
                     <LittleBoxesContainer>
                         <LittleBox type= "text" placeholder="*"/>

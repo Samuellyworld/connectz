@@ -11,6 +11,29 @@ export const VerifyPageContainer = styled.div`
     position:relative ;
     height:100vh ;
     
+    .result {
+        position: absolute;
+        top: 73%;
+        left: 50%;
+        font-weight : bold;
+        transform:translate(-50%, -50%) ;
+        color : green;
+        font-family : TT Firs, "sans-serif";
+
+        @media screen and (max-width : 614px) and (min-width : 509px) {
+            width : 60%;
+        }
+        @media screen and (max-width : 509px) and (min-width : 425px) {
+            width : 70%;
+        }
+        @media screen and (max-width : 425px) and (min-width : 380px) {
+            width : 80%;
+        }
+        @media screen and (max-width : 380px) {
+            width : 90%;
+            margin-top : 5px;
+        }
+    }
 `
 // logo container styles
 export const LogoContainer = styled(Link)`
