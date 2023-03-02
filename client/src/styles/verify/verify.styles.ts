@@ -1,9 +1,9 @@
 // import custom styles
 import styled from "styled-components";
 
-// interface Props {
-//     onClick : any
-// }
+//import Link from react-router-dom
+import { Link } from "react-router-dom";
+
 
 //  verfiy page container styles
 export const VerifyPageContainer = styled.div`
@@ -13,7 +13,7 @@ export const VerifyPageContainer = styled.div`
     
 `
 // logo container styles
-export const LogoContainer = styled.div`
+export const LogoContainer = styled(Link)`
     display: flex;
     align-items: center;
     gap : 0.2rem;

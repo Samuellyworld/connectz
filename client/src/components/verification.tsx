@@ -118,7 +118,7 @@ const Verify : () => JSX.Element = () => {
 
   return (
     <VerifyPageContainer>
-        <LogoContainer>
+        <LogoContainer to = "/">
         <LogoImage src ="/assets/png/logo.png" />
         <span className="text">Connect</span>
       </LogoContainer>
