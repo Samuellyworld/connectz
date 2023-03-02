@@ -142,7 +142,7 @@ export const sendVerificationCode = async (req : Request | any, res: Response) =
                 from : sender,
                 to: identifier,
                 subject : "Verify your Connectz Account",
-                html : `Press <a href=https://connectz-server.herokuapp.com/api/v1/verify/:${token}> here </a> to verify your email, Thanks`
+                html : `Press <a href=https://connectz-server.herokuapp.com/api/v1/verify/${token}> here </a> to verify your email, Thanks`
             }
            transport.sendMail(mailOptions, (err,resp) => {
                if (err) {
