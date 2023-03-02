@@ -12,4 +12,4 @@ export const verifyRouter : Router = express.Router();
 verifyRouter.post('/verify/send', sendVerificationCode);
 
 // confirm verification code
-verifyRouter.put('/verify/:code', verifyAccount);
+verifyRouter.get('/verify/:code', verifyAccount);
