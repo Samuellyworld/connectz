@@ -35,11 +35,10 @@ export const handleSignUpRequest = async (values: signUpInputChangeTypes,
        })
        .catch(err => {
          console.log(err)
-        if(err.response) {
+         if(err.response) {
               setError(err.response.data.message);
-        }
-              
-              setTimeout(() => {
+          }  
+         setTimeout(() => {
                 setError('')
               }, 2000)
        })
@@ -67,9 +66,31 @@ export const handleSignInRequest = async (values : signUpInputChangeTypes,
                 return window.location.pathname = "/verify"
             }
           }).catch(err => {
+            if(err.response) {
             setError(err.response.data.message);
             setTimeout(() => {
               setError('')
             }, 2000)  
+        }
         })                    
       }
+
+
+      // handle send email code
+    export const handleSendEmailCode = async (email : string, 
+                                              setResult : Dispatch<SetStateAction<string>>) => {
+        axios.post(`${baseURL}/api/v1/verify/send`, {
+            identifier : email,
+            verificationMethod : "email"
+         }).then(response => {
+            if(response) {
+                  setResult("Verification code has been sent to your mail");
+                  setTimeout(() => {
+                    setResult('')
+                  }, 2000);
+            }
+        }).catch(err => {
+            console.log(err);
+        })                                      
+    }
+

@@ -36,7 +36,7 @@ export const verifyAccount = async (req : Request, res : Response) => {
        // redirect if verified
        if(user?.verified) {
            // update with hosted link
-           return res.redirect('/profile')
+           return res.redirect('http://localhost:3000/profile')
        } else {
            res.status(400).json({
                message : "User is not verified"
