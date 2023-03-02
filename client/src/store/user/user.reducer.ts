@@ -4,12 +4,20 @@ import { USER_ACTION_TYPES } from './user.types';
 
 // user types;
 interface currentUserTypes {
-   currentUser : null
+   currentUser : {
+      email : string | any,
+      phone : string | any,
+      token : string | any
+   }
 }
 
 // initial state;
 const initialState: currentUserTypes= {
-  currentUser : null
+  currentUser : {
+    email : "",
+    phone : "",
+    token : ""
+  }
 }
 
 // setting user actions;
@@ -17,15 +25,21 @@ export const userSlice = createSlice({
   name: USER_ACTION_TYPES.SET_CURRENT_USER,
   initialState,
   reducers : {
-   setCurrentUser : (state :any, action :PayloadAction<string>) => {
-    state.currentUser = action.payload
+   setCurrentEmail : (state :any, action :PayloadAction<string> | any) => {
+    state.currentUser.email = action.payload
+   },
+   setCurrentPhone : (state :any, action :PayloadAction<string> | any) => {
+    state.currentUser.phone = action.payload
+   },
+   setCurrentUser :  (state :any, action :PayloadAction<string> | any) => {
+    state.currentUser.token = action.payload
    }
   }
   
 })
 
 // dispatch
-export const {setCurrentUser} = userSlice.actions
+export const {setCurrentUser, setCurrentEmail, setCurrentPhone} = userSlice.actions
 
 //reducer
 export default userSlice.reducer

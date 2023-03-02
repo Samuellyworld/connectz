@@ -107,7 +107,7 @@ const PhoneNumberVerify = () => {
 
   return (
     <ForgotPasswordBigContainer>
-      <LogoContainer>
+      <LogoContainer to = "/">
         <LogoImage src = '/assets/png/logo.png' />
         <span className="text">Connect</span>
       </LogoContainer>
