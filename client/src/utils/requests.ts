@@ -3,9 +3,10 @@ import axios from "axios"
 import { Dispatch, SetStateAction } from "react"
 import {  AnyAction } from "redux"
 import { setCurrentEmail, setCurrentPhone, setCurrentUser } from "../store/user/user.reducer"
+import { isEmpty } from "./check";
 
 // types
-import { signUpInputChangeTypes } from "../types/components.types"
+import { codeVerificationTypes, signUpInputChangeTypes } from "../types/components.types"
 
 // base URL
 const baseURL = "https://connectz-server.herokuapp.com"
@@ -94,6 +95,7 @@ export const handleSignInRequest = async (values : signUpInputChangeTypes,
         })                                      
     }
 
+    // handle send phone code
 export const handleSendPhoneCode = async (phone : string,
                                           redirect: { (input: any): void; (arg0: number): void }, 
                                           setError: Dispatch<SetStateAction<string>> ) => {
@@ -105,9 +107,40 @@ export const handleSendPhoneCode = async (phone : string,
           redirect(2)
         }
     }).catch(err => {
+        if(err.response) {
         setError(err.response.data.message);
         setTimeout(() => {
           setError('')
         }, 2000) 
+    }
     })
+
 } 
+
+
+   // handle confirm phone code 
+   export const handleConfirmCode = async (values: codeVerificationTypes | any , setError : Dispatch<SetStateAction<string>>) => {
+       // check if it is empty
+       if(isEmpty(values)) {
+         setError("Please enter code field")
+         return  setTimeout(() => {
+          setError('');
+         }, 2000)
+       } 
+     // join  values
+     const joinValues = Object.values(values).join("");
+
+
+     // make a request
+     axios.get(`${baseURL}/api/v1/verify/${joinValues}`)
+      .then(response => {
+         console.log(response)
+      }).catch(err => {
+        if(err.response) {
+        setError(err.response.data.message);
+        setTimeout(() => {
+          setError('')
+        }, 2000) 
+    }
+    })
+   }

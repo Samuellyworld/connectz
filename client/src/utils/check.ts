@@ -6,7 +6,7 @@ import { signUpInputChangeTypes } from "../types/components.types";
 import { isValidEmail, isStrongPassword, regex } from "./validate";
 
 // if empty
-const isEmpty : (valuesObj: signUpInputChangeTypes) => boolean = (valuesObj : any) => {
+export const isEmpty : (valuesObj: signUpInputChangeTypes) => boolean = (valuesObj : any) => {
     return Object.keys(valuesObj).every(key => {
         const value = valuesObj[key];
         return (typeof value === "string" && value.trim() === "") ||

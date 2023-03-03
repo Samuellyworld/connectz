@@ -7,6 +7,7 @@ import { QueryResult } from "pg";
 
 // import types
 import { verifyQueryTypes } from "../../types/verify.types";
+import { checkCodeNumbers } from "../../validate/validate";
 
 export const verifyAccount = async (req : Request, res : Response) => {
     // get code from params
@@ -33,10 +34,15 @@ export const verifyAccount = async (req : Request, res : Response) => {
        const userResult : QueryResult = await db.query(updateVerificationStatus); 
        const user = userResult.rows[0];
        
+       
        // redirect if verified
-       if(user?.verified) {
-           // update with hosted link
-           return res.redirect('http://localhost:3000/profile')
+       if(user?.verified && checkCodeNumbers(code)) {
+           return res.status(200).json({
+               message : "redirect to profile"
+           })
+       } else if(user?.verified && !checkCodeNumbers(code)) {
+            // update with hosted link
+            return res.redirect('http://localhost:3000/profile')
        } else {
            res.status(400).json({
                message : "User is not verified"

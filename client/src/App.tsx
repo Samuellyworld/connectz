@@ -22,6 +22,7 @@ const App : () => JSX.Element = () => {
            <Route path='/signin' element={<SignInPage/>} />
            <Route path='/verify' element={<VerifyPage/> } />
            <Route path='/forgot-password' element={<ForgotPasswordPage/> } />
+           <Route path="/profile" element={<ForgotPasswordPage />} />
          </Routes>
        </Router>
  
