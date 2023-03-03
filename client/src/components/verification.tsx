@@ -12,7 +12,7 @@ import { VerifyPageContainer,LogoContainer,
 import { Dispatch, SetStateAction, useState } from "react"
 
 // import relevant function
-import { handleSendEmailCode } from "../utils/requests";
+import { handleConfirmCode, handleSendEmailCode } from "../utils/requests";
 import { handleSendPhoneCode } from "../utils/requests";
 
 // import use selector
@@ -22,6 +22,7 @@ import { useSelector } from "react-redux";
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import { RootState } from "../store/store";
+import { codeVerificationTypes } from "../types/components.types";
 
 
 
@@ -40,12 +41,7 @@ const Verify : () => JSX.Element = () => {
         setChoosen(input)
     }
     
-    // handle submit
-    const handleSubmit = () => {
-         
-    }
-
-
+   
     // choose which to verify with
     const ChooseVerify = () => {
         const [result, setResult] = useState('')
@@ -119,9 +115,30 @@ const Verify : () => JSX.Element = () => {
         )
     }
 
+    // handle code
     const CodeVerify = () => {
+        const [values, setValues]= useState({
+            first : "",
+            second : "",
+            third : "",
+            fourth : ""
+        } as codeVerificationTypes
+        );
+        // handle error
+        const [error, setError] : [string, Dispatch<SetStateAction<string>>]= useState("");
+
+        // handle change
+        const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+            const {name, value} = e.target
+            setValues({
+              ...values,
+              [name] : value,
+            })
+          }
+
         return (
-            <VerifyInnerContainer>
+           <>
+              <VerifyInnerContainer>
                  <VerifyNextButton 
                    className="button_verify" 
                    onClick = {() => handleClick(3)}
@@ -129,20 +146,23 @@ const Verify : () => JSX.Element = () => {
                     Back
                  </VerifyNextButton> 
                 <VerifyBigText>Verify your phone number</VerifyBigText>
-                <VerifySmallText>Enter the 6-digit code sent to {value} </VerifySmallText>
+                <VerifySmallText>Enter the 4-digit code sent to {value} </VerifySmallText>
 
                     <LittleBoxesContainer>
-                        <LittleBox type= "text" placeholder="*"/>
-                        <LittleBox type= "text" placeholder="*"/>
-                        <LittleBox type= "text" placeholder="*"/>
-                        <LittleBox type= "text" placeholder="*"/>
+                        <LittleBox type= "text" placeholder="*" name="first" onChange={handleChange}/>
+                        <LittleBox type= "text" placeholder="*" name="second" onChange={handleChange}/>
+                        <LittleBox type= "text" placeholder="*" name="third" onChange={handleChange}/>
+                        <LittleBox type= "text" placeholder="*" name="fourth" onChange={handleChange}/>
                     </LittleBoxesContainer>
                            
 
                 <VerifyButtonContainer>
-                    <VerifyNextButton onClick={handleSubmit}>Submit</VerifyNextButton>    
+                    <VerifyNextButton onClick={() => handleConfirmCode(values,setError)}>Submit</VerifyNextButton>    
                 </VerifyButtonContainer>
             </VerifyInnerContainer>
+              <p className="error">{error}</p> 
+           </>
+         
         )
     }
 

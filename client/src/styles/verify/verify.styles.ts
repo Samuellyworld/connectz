@@ -37,7 +37,7 @@ export const VerifyPageContainer = styled.div`
 
     .error {
         position: absolute;
-        top: 73%;
+        top: 77%;
         left: 50%;
         font-weight : bold;
         transform:translate(-50%, -50%) ;
