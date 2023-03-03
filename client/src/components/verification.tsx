@@ -9,10 +9,11 @@ import { VerifyPageContainer,LogoContainer,
        } from "../styles/verify/verify.styles";
 
  // usestate from react
-import { useState } from "react"
+import { Dispatch, SetStateAction, useState } from "react"
 
 // import relevant function
 import { handleSendEmailCode } from "../utils/requests";
+import { handleSendPhoneCode } from "../utils/requests";
 
 // import use selector
 import { useSelector } from "react-redux";
@@ -33,10 +34,6 @@ const Verify : () => JSX.Element = () => {
     // using use selector
     const email : string = useSelector((state : RootState) => 
         state?.currentUser?.currentUser?.email
-    )
-    // phone number
-    const phone :string = useSelector((state : RootState) => 
-      state?.currentUser?.currentUser?.phone
     )
 
     const handleClick = (input : any) => {
@@ -75,6 +72,14 @@ const Verify : () => JSX.Element = () => {
 
     // phone number verify
     const PhoneNumberVerify = () => {
+           
+        // phone number
+     const phone :string = useSelector((state : RootState) => 
+        state?.currentUser?.currentUser?.phone
+        )
+
+        const [error, setError] : [string, Dispatch<SetStateAction<string>>]= useState("");
+
         return (
           <> 
            <VerifyInnerContainer>
@@ -93,19 +98,22 @@ const Verify : () => JSX.Element = () => {
                             name: 'phone',
                             required: true,
                             autoFocus: true
-                        }} inputStyle = {{width : "100%", border : "none"} }/>
-
+                        }} inputStyle = {{width : "100%", border : "none"} }
+                     />
+       
                 
                 </VerifyInputCont>            
 
                 <VerifyButtonContainer>
                     <VerifyNextButton  
-                      onClick = {() => handleClick(2)
+                      onClick = {
+                         () => handleSendPhoneCode(phone, handleClick, setError)   
                       }>
                      Submit
                     </VerifyNextButton>    
                 </VerifyButtonContainer>
             </VerifyInnerContainer>
+             <p className="error">{error}</p>
           </>
           
         )
