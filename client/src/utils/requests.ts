@@ -57,7 +57,7 @@ export const handleSignInRequest = async (values : signUpInputChangeTypes,
                 dispatch(setCurrentUser(response.data.data.token))
                 dispatch(setCurrentEmail(response?.data?.data?.email))
                 dispatch(setCurrentPhone(response?.data?.data?.phone))
-                return window.location.pathname = '/profile'
+                return window.location.pathname = '/verify'
             }
             else if (!response?.data?.data?.verified) {
                 dispatch(setCurrentUser(response.data.data.token))
@@ -77,7 +77,7 @@ export const handleSignInRequest = async (values : signUpInputChangeTypes,
 
 
       // handle send email code
-    export const handleSendEmailCode = async (email : string, 
+ export const handleSendEmailCode = async (email : string, 
                                               setResult : Dispatch<SetStateAction<string>>) => {
         axios.post(`${baseURL}/api/v1/verify/send`, {
             identifier : email,
@@ -94,3 +94,20 @@ export const handleSignInRequest = async (values : signUpInputChangeTypes,
         })                                      
     }
 
+export const handleSendPhoneCode = async (phone : string,
+                                          redirect: { (input: any): void; (arg0: number): void }, 
+                                          setError: Dispatch<SetStateAction<string>> ) => {
+    axios.post(`${baseURL}/api/v1/verify/send`, {
+        identifier : phone,
+        verificationMethod : "phone"
+    }).then(response => {
+        if(response) {
+          redirect(2)
+        }
+    }).catch(err => {
+        setError(err.response.data.message);
+        setTimeout(() => {
+          setError('')
+        }, 2000) 
+    })
+} 
