@@ -36,35 +36,35 @@ const Verify : () => JSX.Element = () => {
     const email : string = useSelector((state : RootState) => 
         state?.currentUser?.currentUser?.email
     )
-
+     // handle click
     const handleClick = (input : any) => {
         setChoosen(input)
     }
     
    
     // choose which to verify with
-    const ChooseVerify = () => {
+ const ChooseVerify : () => JSX.Element = () => {
+       // set result after API call
         const [result, setResult] = useState('')
         return (
             <>    
               <VerifyInnerContainer>
                  <VerifyNextButton
                   className="button_verify"
-                  onClick = {() => window.history.back()}
-                  >Back
-                     </VerifyNextButton> 
-                     <VerifyBigText>Verify your account</VerifyBigText>
-                     <VerifySmallText>How would you like to verify your account</VerifySmallText>
-                        <VerifySecondDiv>
-                            <VerifyMethod onClick={() => handleSendEmailCode(email, setResult)} >Verify account with email</VerifyMethod>
-                            <VerifyMethod onClick = {() => handleClick(3)}>Verify account with Phone Number</VerifyMethod>
-                        </VerifySecondDiv>
-                 
-                    </VerifyInnerContainer>
-                    <p className="result">{result}</p>
+                  onClick = {() => window.history.back()}>
+                  Back
+                 </VerifyNextButton> 
+                   <VerifyBigText>Verify your account</VerifyBigText>
+                   <VerifySmallText>How would you like to verify your account</VerifySmallText>
+                     <VerifySecondDiv>
+                        <VerifyMethod onClick={() => handleSendEmailCode(email, setResult)} >Verify account with email</VerifyMethod>
+                        <VerifyMethod onClick = {() => handleClick(3)}>Verify account with Phone Number</VerifyMethod>
+                     </VerifySecondDiv>
+               </VerifyInnerContainer>
+               <p className="result">{result}</p>
             </>
-        )
-    }
+         )
+      }
 
     // phone number verify
     const PhoneNumberVerify = () => {
@@ -74,32 +74,33 @@ const Verify : () => JSX.Element = () => {
         state?.currentUser?.currentUser?.phone
         )
 
-        const [error, setError] : [string, Dispatch<SetStateAction<string>>]= useState("");
+       // error
+     const [error, setError] : [string, Dispatch<SetStateAction<string>>]= useState("");
 
         return (
           <> 
            <VerifyInnerContainer>
-           <VerifyNextButton
+            <VerifyNextButton
               className="button_verify" 
-              onClick = {() => handleClick(1)}
-              >
+              onClick = {() => handleClick(1)}>
               Back
-            </VerifyNextButton> 
-                <VerifyBigText>Verify your phone number</VerifyBigText>
-                <VerifySmallText>Verify your phone number so we can help you if you forget the password to your account</VerifySmallText>
-
-                <VerifyInputCont>
-                    <PhoneInput placeholder = "Phone Number" country="ng" value={phone}
-                        onChange={setValue(phone)} inputProps={{
+             </VerifyNextButton> 
+             <VerifyBigText>Verify your phone number</VerifyBigText>
+             <VerifySmallText>Verify your phone number so we can help you if you forget the password to your account</VerifySmallText>
+               <VerifyInputCont>
+                 <PhoneInput
+                    placeholder = "Phone Number" 
+                    country="ng" value={phone}
+                    onChange={
+                         setValue(phone)} 
+                         inputProps={{
                             name: 'phone',
                             required: true,
                             autoFocus: true
-                        }} inputStyle = {{width : "100%", border : "none"} }
-                     />
-       
-                
+                         }} 
+                   inputStyle= {{ width : "100%", border : "none"} }
+                  />         
                 </VerifyInputCont>            
-
                 <VerifyButtonContainer>
                     <VerifyNextButton  
                       onClick = {
@@ -108,15 +109,15 @@ const Verify : () => JSX.Element = () => {
                      Submit
                     </VerifyNextButton>    
                 </VerifyButtonContainer>
-            </VerifyInnerContainer>
+             </VerifyInnerContainer>
              <p className="error">{error}</p>
           </>
           
         )
     }
 
-    // handle code
-    const CodeVerify = () => {
+    // handle code verify
+    const CodeVerify : () => JSX.Element = () => {
         const [values, setValues]= useState({
             first : "",
             second : "",
@@ -124,6 +125,7 @@ const Verify : () => JSX.Element = () => {
             fourth : ""
         } as codeVerificationTypes
         );
+
         // handle error
         const [error, setError] : [string, Dispatch<SetStateAction<string>>]= useState("");
 
@@ -136,42 +138,44 @@ const Verify : () => JSX.Element = () => {
             })
           }
 
+       /// JSX Building block
         return (
            <>
               <VerifyInnerContainer>
                  <VerifyNextButton 
                    className="button_verify" 
                    onClick = {() => handleClick(3)}
-                >
-                    Back
-                 </VerifyNextButton> 
-                <VerifyBigText>Verify your phone number</VerifyBigText>
-                <VerifySmallText>Enter the 4-digit code sent to {value} </VerifySmallText>
-
-                    <LittleBoxesContainer>
-                        <LittleBox type= "text" placeholder="*" name="first" onChange={handleChange}/>
-                        <LittleBox type= "text" placeholder="*" name="second" onChange={handleChange}/>
-                        <LittleBox type= "text" placeholder="*" name="third" onChange={handleChange}/>
-                        <LittleBox type= "text" placeholder="*" name="fourth" onChange={handleChange}/>
-                    </LittleBoxesContainer>
-                           
-
+                  >
+                  Back
+               </VerifyNextButton> 
+               <VerifyBigText>Verify your phone number</VerifyBigText>
+               <VerifySmallText>Enter the 4-digit code sent to {value} </VerifySmallText>
+                 <LittleBoxesContainer>
+                     <LittleBox type= "text" placeholder="*" name="first" onChange={handleChange}/>
+                     <LittleBox type= "text" placeholder="*" name="second" onChange={handleChange}/>
+                     <LittleBox type= "text" placeholder="*" name="third" onChange={handleChange}/>
+                     <LittleBox type= "text" placeholder="*" name="fourth" onChange={handleChange}/>
+                 </LittleBoxesContainer>
                 <VerifyButtonContainer>
-                    <VerifyNextButton onClick={() => handleConfirmCode(values,setError)}>Submit</VerifyNextButton>    
+                    <VerifyNextButton
+                      onClick={() => handleConfirmCode(values,setError)}
+                     >
+                    Submit
+                    </VerifyNextButton>    
                 </VerifyButtonContainer>
-            </VerifyInnerContainer>
-              <p className="error">{error}</p> 
+               </VerifyInnerContainer>
+               <p className="error">{error}</p> 
            </>
-         
         )
     }
 
-  return (
-    <VerifyPageContainer>
+// conditional verification page routing
+   return (
+     <VerifyPageContainer>
         <LogoContainer to = "/">
-        <LogoImage src ="/assets/png/logo.png" />
-        <span className="text">Connect</span>
-      </LogoContainer>
+         <LogoImage src ="/assets/png/logo.png" />
+         <span className="text">Connect</span>
+       </LogoContainer>
         {
             choosen == 1 ? (
                 <ChooseVerify />
@@ -182,7 +186,7 @@ const Verify : () => JSX.Element = () => {
             )
         }
     </VerifyPageContainer>
-  )
+    )
 }
 
 export default Verify;

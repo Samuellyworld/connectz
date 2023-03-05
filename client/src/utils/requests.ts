@@ -119,10 +119,11 @@ export const handleSendPhoneCode = async (phone : string,
 
 
    // handle confirm phone code 
-   export const handleConfirmCode = async (values: codeVerificationTypes | any , setError : Dispatch<SetStateAction<string>>) => {
+   export const handleConfirmCode = async (values: codeVerificationTypes | any ,
+                                           setError : Dispatch<SetStateAction<string>>) => {
        // check if it is empty
        if(isEmpty(values)) {
-         setError("Please enter code field")
+         setError("Please enter Code")
          return  setTimeout(() => {
           setError('');
          }, 2000)
@@ -130,17 +131,20 @@ export const handleSendPhoneCode = async (phone : string,
      // join  values
      const joinValues = Object.values(values).join("");
 
-
      // make a request
      axios.get(`${baseURL}/api/v1/verify/${joinValues}`)
-      .then(response => {
-         console.log(response)
-      }).catch(err => {
+       .then(response => {
+          if(response) {
+            // if there is a response redirect to profile
+            return window.location.pathname = "/profile"
+          }
+        }).catch(err => {
         if(err.response) {
         setError(err.response.data.message);
         setTimeout(() => {
           setError('')
         }, 2000) 
-    }
-    })
+      }
+     })
+
    }
