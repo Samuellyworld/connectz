@@ -9,11 +9,12 @@ import { profileQueryTypes } from "../../types/profile.types";
 
 //get user profile controller
 export const  getUserProfile = async (req:Request |any, res:Response) => {
-    // get user from params
-    const {userId} = req?.params
+  
+    // get id from auth
+    const userId = req?.user.user_id;
 
     try {
-       // check if userid exist
+       // check if user id exist
        const userQuery : profileQueryTypes = {
            text : 'SELECT * FROM users WHERE id = $1',
            values : [userId]
