@@ -12,8 +12,8 @@ import { authMiddleware } from "../middleware/middleware";
 export const profileRouter : Router = express.Router();
 
 // update profile route
-profileRouter.put('/profile/:userId', authMiddleware, updateUserProfile);
+profileRouter.put('/profile', authMiddleware, updateUserProfile);
 
 // get profile route
-profileRouter.get('/profile', authMiddleware, getUserProfile);
+profileRouter.get('/profile/:userId', authMiddleware, getUserProfile);
 
