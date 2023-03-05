@@ -58,7 +58,7 @@ export const handleSignInRequest = async (values : signUpInputChangeTypes,
                 dispatch(setCurrentUser(response.data.data.token))
                 dispatch(setCurrentEmail(response?.data?.data?.email))
                 dispatch(setCurrentPhone(response?.data?.data?.phone))
-                return window.location.pathname = '/verify'
+                window.location.pathname = '/profile'
             }
             else if (!response?.data?.data?.verified) {
                 dispatch(setCurrentUser(response.data.data.token))
@@ -66,6 +66,7 @@ export const handleSignInRequest = async (values : signUpInputChangeTypes,
                 dispatch(setCurrentPhone(response?.data?.data?.phone))
                 return window.location.pathname = "/verify"
             }
+
           }).catch(err => {
             if(err.response) {
             setError(err.response.data.message);

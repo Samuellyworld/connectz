@@ -71,7 +71,6 @@ export const RightImage = styled.img`
 export const LogoContainer = styled.div`
     display: flex;
     align-items: center;
-    gap : 0.2rem;
      
     .text {
         font-size: 1.5rem;

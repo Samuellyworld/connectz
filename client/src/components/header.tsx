@@ -23,7 +23,7 @@ const user : boolean = false;
         <HeaderContainer>
             <LeftSide>
               <LeftImageContainer>
-                <Logo src ='/assets/png/logo.png' alt="landing icon" />
+                <Link to = "/"><Logo src ='/assets/png/logo.png' alt="landing icon" /></Link>
               </LeftImageContainer>
             </LeftSide>
             {
@@ -48,8 +48,8 @@ const user : boolean = false;
               ):
               (
                 <RightSide>
-                  <Link to = "register"><Button >Sign In</Button></Link>
-                  <Link to = "signin"><Button >Sign Up</Button></Link>
+                  <Link to = "/signin"><Button >Sign In</Button></Link>
+                  <Link to = "/signup"><Button >Sign Up</Button></Link>
                 </RightSide>
               )
             }

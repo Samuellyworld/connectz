@@ -11,11 +11,15 @@ import { AlreadySignedUp, SignText
 import { Logo } from "../styles/landing/header.styles";
 import { LeftImageContainer } from "../styles/landing/header.styles";
 
+//delete
+import Spinner from './spinner'
+
 // import dispatch
 import { useDispatch } from "react-redux";
 
 // importing use state 
 import {  useState } from "react";
+import {Link} from "react-router-dom";
 
 // input check function
 import { checkInputs } from "../utils/check";
@@ -43,6 +47,8 @@ const SignIn : () => JSX.Element = () => {
       password : ""
   } as signUpInputChangeTypes)
 
+
+
 // handle input change
 const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = e.target
@@ -68,10 +74,13 @@ const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
   return (
     <SignInContainer>
       <LogoContainer>
+      <Link to = "/">
           <LeftImageContainer>
-                <Logo className="logo" src ="/assets/png/logo.png" />
+            <Logo src ='/assets/png/logo.png' className = "logo" alt="landing icon" />
+            <span className="text">Connect</span>
           </LeftImageContainer>
-        <span className="text">Connect</span>
+      </Link>
+
       </LogoContainer>
 
       <WelcomeText>Welcome Back</WelcomeText>
