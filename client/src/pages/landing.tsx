@@ -7,7 +7,7 @@ import Main from "../components/splash-section";
 const LandingPage : () => JSX.Element = () => {
     return (
        <>
-       <Header/>
+       <Header bool={false}/>
        <Main/>
        </>
     );

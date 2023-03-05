@@ -9,7 +9,7 @@ import { isEmpty } from "./check";
 import { codeVerificationTypes, signUpInputChangeTypes } from "../types/components.types"
 
 // base URL
-const baseURL = "https://connectz-server.herokuapp.com"
+export const baseURL = "https://connectz-server.herokuapp.com"
 
 
 // handle sign up request
@@ -151,15 +151,14 @@ export const handleSendPhoneCode = async (phone : string,
    }
 
 
-   export const handleGetProfile = (currentUser: string) => {
-    console.log(currentUser)
-      axios.get(`${baseURL}/api/user/profile/${currentUser}`, {
+   export const handleGetProfile = (currentUser: string, setProfile : any) => {
+      axios.get(`${baseURL}/api/v1/user/profile/${currentUser}`, {
          headers : {
           "x-access-token" : currentUser
           }
          }
        ).then(response => {
-        console.log(response?.data)
-        return response.data
+        console.log(response?.data?.data)
+        setProfile(response.data?.data)
     }).catch(err => console.log(err))
    }

@@ -31,4 +31,8 @@ export interface editProfileProps {
     setIsOpen: Dispatch<SetStateAction<boolean>>;
     isOpen: boolean;
   }
+
+export interface headerTypes {
+    bool : boolean
+}
   

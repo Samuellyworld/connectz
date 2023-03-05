@@ -8,15 +8,16 @@ import { Button, DropdownWrapper,
 //  import relevant react hooks and for types
 import { Dispatch, SetStateAction, useState } from "react";
 import {Link} from 'react-router-dom';
+import { headerTypes } from "../types/components.types";
 
 // JSX Component
-const Header: () => JSX.Element = () => {
+const Header = (props : headerTypes) => {
   
 // react state initial boolean
 const [isOpen, setIsOpen] : [boolean, Dispatch<SetStateAction<boolean>>] = useState(false);
-  
-//to check if user exists
-const user : boolean = false; 
+
+//
+
 
   return (
     <>
@@ -27,7 +28,7 @@ const user : boolean = false;
               </LeftImageContainer>
             </LeftSide>
             {
-              user ? (
+              props?.bool ? (
                 <RightSide>
                       <HeaderLinkItem>DISCOVER</HeaderLinkItem>
                       <HeaderLinkItem>BODY</HeaderLinkItem>              
@@ -39,9 +40,20 @@ const user : boolean = false;
                          onMouseLeave={() => setIsOpen(!isOpen)}
                         />
                        <DropdownOptions isOpen={isOpen}>
-                        <DropdownOption >My Profile</DropdownOption>
-                        <DropdownOption>Settings</DropdownOption>
-                        <button className="logOutButton">Log Out</button>
+                        <Link to={"/profile"} >
+                         <DropdownOption >My Profile</DropdownOption>
+                        </Link>
+                        
+                        {/* <DropdownOption onClick={() => props?.click}>EditProfile</DropdownOption> */}
+                        <button 
+                         className="logOutButton"
+                         onClick={() => {
+                           localStorage.clear()
+                            window.location.reload()
+                          }}
+                         >
+                          Log Out
+                         </button>
                       </DropdownOptions>
                     </DropdownWrapper> 
                 </RightSide>
