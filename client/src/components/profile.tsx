@@ -25,71 +25,71 @@ const Profile : () => JSX.Element = () => {
     const currentUser : string = useSelector((state : RootState) => 
        state?.currentUser?.currentUser?.token  
     )
-    const handleClick = () => {
-        setIsOpen(!isOpen)
-    }
+    // const handleClick = () => {
+    //     setIsOpen(!isOpen)
+    //     console.log(profileDetails?.interests)
+    // }
     useEffect(() => {
-        setProfileDetails(handleGetProfile(currentUser))
+        handleGetProfile(currentUser, setProfileDetails)
     }, [])
   return (
       <>
-        <Header />
+        <Header bool={true}/>
            {
-            profileDetails ? 
-            <ProfilePageContainer isOpen= {isOpen}>
-            {
-                isOpen ? (<BackgroundLayer />) : <></>
-            }
-            <ProfilePageLeft>
-                <ProfileImageCont>
-                    <ProfileImage src ="/assets/jpg/background.jpg"/>
-                </ProfileImageCont>
-                <ProfileInterests>
-                    <ProfileInterestsHeader>Interests</ProfileInterestsHeader>
-                    <ProfileInterest>
-                        BasketBall
-                    </ProfileInterest>
-                    <ProfileInterest>
-                        VolleyBall
-                    </ProfileInterest>
-                    <ProfileInterest>
-                        Table Tennis
-                    </ProfileInterest>
-                </ProfileInterests>
-            </ProfilePageLeft>
-            <ProfilePageRight>
-                <ProfileName> Segunmaru Faozan</ProfileName>
-                <ProfileTitle>Software Developer</ProfileTitle>
-
-                <ProfileOption>
-                    <ProfileAboutOption><ProfileIcon src ="/assets/png/Vector.png" /> About</ProfileAboutOption>
-                </ProfileOption>
-
-                <ProfileInfoCont>
-                    <ProfileTopContainer>
-                        <span className="ProfileText">CONTACT INFORMATION</span>
-                        <span className="EditProfileText" onClick={() => handleClick()}>Edit Profile</span>
-                    </ProfileTopContainer>
-                    <ProfileInfoItem>
-                        <ProfileInfoLeft>Username: </ProfileInfoLeft>
-                        <ProfileInfoRight>Faozy</ProfileInfoRight>
-                    </ProfileInfoItem>
-                    <ProfileInfoItem>
-                        <ProfileInfoLeft>Phone: </ProfileInfoLeft>
-                        <ProfileInfoRight>+234 80 7875 4215</ProfileInfoRight>
-                    </ProfileInfoItem>
-                    <ProfileInfoItem>
-                        <ProfileInfoLeft>Email: </ProfileInfoLeft>
-                        <ProfileInfoRight>Segunfaozan112@gmail.com</ProfileInfoRight>
-                    </ProfileInfoItem>
-                </ProfileInfoCont>
-            </ProfilePageRight>
-             {
-                isOpen ? (<EditProfile setIsOpen = {setIsOpen} isOpen = {isOpen} />) : <></>
-             }  
-           </ProfilePageContainer>
+            profileDetails.length === 0 || !profileDetails ? 
+             <Spinner/>
            : 
-           <Spinner/>
+           <ProfilePageContainer isOpen= {isOpen}>
+           {
+               isOpen ? (<BackgroundLayer />) : <></>
+           }
+           <ProfilePageLeft>
+               <ProfileImageCont>
+                   <ProfileImage src ="/assets/jpg/background.jpg"/>
+               </ProfileImageCont>
+               <ProfileInterests>
+                   <ProfileInterestsHeader>Interests</ProfileInterestsHeader>
+                   {
+                       profileDetails?.interests?.map(
+                         (interest : string, i : number) => (
+                           <ProfileInterest key={i}>
+                               {interest}
+                           </ProfileInterest>
+                       ))
+                   }
+               </ProfileInterests>
+           </ProfilePageLeft>
+           <ProfilePageRight>
+               <ProfileName>@{profileDetails?.username}</ProfileName>
+               <ProfileTitle>{profileDetails?.email}</ProfileTitle>
+
+               <ProfileOption>
+                   <ProfileAboutOption><ProfileIcon src ="/assets/png/Vector.png" /> About</ProfileAboutOption>
+               </ProfileOption>
+
+               <ProfileInfoCont>
+                   <ProfileTopContainer>
+                       <span className="ProfileText">CONTACT INFORMATION</span>
+                       <span className="EditProfileText" onClick={() => setIsOpen(!isOpen)}>Edit Profile</span>
+                   </ProfileTopContainer>
+                   <ProfileInfoItem>
+                       <ProfileInfoLeft>Username: </ProfileInfoLeft>
+                       <ProfileInfoRight>{profileDetails?.username}</ProfileInfoRight>
+                   </ProfileInfoItem>
+                   <ProfileInfoItem>
+                       <ProfileInfoLeft>Phone: </ProfileInfoLeft>
+                       <ProfileInfoRight>{profileDetails?.phone}</ProfileInfoRight>
+                   </ProfileInfoItem>
+                   <ProfileInfoItem>
+                       <ProfileInfoLeft>Email: </ProfileInfoLeft>
+                       <ProfileInfoRight>{profileDetails?.email}</ProfileInfoRight>
+                   </ProfileInfoItem>
+               </ProfileInfoCont>
+           </ProfilePageRight>
+            {
+               isOpen ? (<EditProfile setIsOpen = {setIsOpen} isOpen = {isOpen} />) : <></>
+            }  
+          </ProfilePageContainer>
            }
         
     </>
