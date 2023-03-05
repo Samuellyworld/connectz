@@ -149,3 +149,16 @@ export const handleSendPhoneCode = async (phone : string,
      })
 
    }
+
+
+   export const handleGetProfile = (currentUser: string) => {
+      axios.get(`${baseURL}/api/user/profile/${currentUser}`, {
+         headers : {
+          "x-access-token" : currentUser
+          }
+         }
+       ).then(response => {
+        console.log(response?.data)
+        return response.data
+    }).catch(err => console.log(err))
+   }

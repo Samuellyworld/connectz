@@ -9,21 +9,34 @@ import { ProfileImageCont,ProfileIcon,
          ProfileInfoLeft, ProfileInfoRight, 
          ProfileInfoCont, ProfileTopContainer, BackgroundLayer 
       } from "../styles/profile/profile.styles";
-import image from '../../assets/background.jpg';
-import vector from '../../assets/Vector.png'
-import EditProfile from "./edit";
-import { Dispatch, SetStateAction, useState } from "react";
 
+
+import EditProfile from "./edit";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { handleGetProfile } from "../utils/requests";
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
+import Spinner from "./spinner";
+
+// profile JSX component
 const Profile : () => JSX.Element = () => {
     const [isOpen, setIsOpen] : [boolean , Dispatch<SetStateAction<boolean>>] = useState(false);
-
+    const [profileDetails, setProfileDetails] : any = useState([])
+    const currentUser : string = useSelector((state : RootState) => 
+       state?.currentUser?.currentUser?.token  
+    )
     const handleClick = () => {
         setIsOpen(!isOpen)
     }
+    useEffect(() => {
+        setProfileDetails(handleGetProfile(currentUser))
+    }, [])
   return (
       <>
         <Header />
-           <ProfilePageContainer isOpen= {isOpen}>
+           {
+            profileDetails ? 
+            <ProfilePageContainer isOpen= {isOpen}>
             {
                 isOpen ? (<BackgroundLayer />) : <></>
             }
@@ -74,7 +87,11 @@ const Profile : () => JSX.Element = () => {
              {
                 isOpen ? (<EditProfile setIsOpen = {setIsOpen} isOpen = {isOpen} />) : <></>
              }  
-        </ProfilePageContainer>
+           </ProfilePageContainer>
+           : 
+           <Spinner/>
+           }
+        
     </>
   )
 }
