@@ -7,6 +7,7 @@ import { Button, DropdownWrapper,
 
 //  import relevant react hooks and for types
 import { Dispatch, SetStateAction, useState } from "react";
+import {Link} from 'react-router-dom';
 
 // JSX Component
 const Header: () => JSX.Element = () => {
@@ -47,8 +48,8 @@ const user : boolean = false;
               ):
               (
                 <RightSide>
-                  <Button >Sign In</Button>
-                  <Button >Sign Up</Button>
+                  <Link to = "register"><Button >Sign In</Button></Link>
+                  <Link to = "signin"><Button >Sign Up</Button></Link>
                 </RightSide>
               )
             }
