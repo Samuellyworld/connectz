@@ -134,6 +134,7 @@ export const LoginForm = styled.form`
     width:100% ;
     gap : 1.5rem;
     padding:0 1rem ;
+    font-size : 1.2rem;
 `
 //sign in input container styles
 export const SignInInputCont = styled.div`

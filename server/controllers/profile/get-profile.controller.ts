@@ -9,9 +9,8 @@ import { profileQueryTypes } from "../../types/profile.types";
 
 //get user profile controller
 export const  getUserProfile = async (req:Request |any, res:Response) => {
-    
-    // get id from auth
-    const userId = req?.user.user_id;
+    // get user from params
+    const {userId} = req?.params
 
     try {
        // check if userid exist

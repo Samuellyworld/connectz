@@ -4,6 +4,10 @@ import {
         SetStateAction, 
         ChangeEvent
        } from "react";
+      
+//importing Link from react router dom
+import {Link } from "react-router-dom"
+
 
 // import custom styles
 import { ImgIcon, AlreadySignedUp,
@@ -99,12 +103,13 @@ const SignUp : () => JSX.Element = () => {
     <SignUpContainer>
       <SignUpLeft>
       <LogoContainer>
+      <Link to = "/">
           <LeftImageContainer>
-                <Logo src ='/assets/png/logo.png' 
-                 style={{ width : "3rem"}}
-                 />
+            <Logo src ='/assets/png/logo.png' className = "logo" alt="landing icon" />
+            <span className="text">Connect</span>
           </LeftImageContainer>
-        <span className="text">Connect</span>
+      </Link>
+
       </LogoContainer>
     <WelcomeText>Welcome!</WelcomeText>  
      <p className="error"> {error}</p>

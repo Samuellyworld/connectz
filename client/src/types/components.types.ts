@@ -1,3 +1,6 @@
+//importing nessecary modules
+import { Dispatch, SetStateAction } from 'react';
+
 // sign up input change types
 export interface signUpInputChangeTypes {
     username : string,
@@ -22,3 +25,10 @@ export interface codeVerificationTypes {
     third : string,
     fourth : string
 }
+
+//profile open useState types
+export interface editProfileProps {
+    setIsOpen: Dispatch<SetStateAction<boolean>>;
+    isOpen: boolean;
+  }
+  

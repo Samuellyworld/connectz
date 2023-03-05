@@ -13,6 +13,7 @@ export const HeaderContainer = styled.div`
     align-items: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
     height:11vh ;
+    
 
     @media screen and (max-width : 500px) {
         padding : 1rem ;
@@ -51,6 +52,7 @@ export const LeftImageContainer = styled.div `
     display :flex;
     flex-direction : row;
     align-items : center;
+
 `
 
 export const Button = styled.button`
